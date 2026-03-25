@@ -30,7 +30,7 @@ export function encodeShiftJIS(str: string, maxBytes: number): Uint8Array {
         let b0: number;
         let b1 = -1;
 
-        if (cp >= 0x20 && cp <= 0x7e) {
+        if (cp < 0x80) {
             b0 = cp;
         } else if (cp >= 0xff61 && cp <= 0xff9f) {
             // Half-width katakana (U+FF61-U+FF9F) maps to 0xA1-0xDF

@@ -46,6 +46,13 @@ describe("Shift-JIS text encode/decode", () => {
         expect(decoded).toBe(text);
     });
 
+    it("preserves newline characters (LF)", () => {
+        const text = "Line 1\nLine 2";
+        const encoded = encodeShiftJIS(text, 32);
+        expect(encoded[6]).toBe(0x0a); // LF byte
+        expect(decodeShiftJIS(encoded)).toBe(text);
+    });
+
     it("truncates at character boundary for multi-byte chars", () => {
         // Each katakana character is 2 bytes in Shift-JIS
         // With maxBytes=5, we can fit 2 characters (4 bytes) but not 3 (6 bytes)
